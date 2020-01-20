@@ -1,6 +1,6 @@
 
 package ds_algo;
-
+//two pointer approach is used here.
 
 public class String_rev {
     public static void revstring(String[] arr) {
