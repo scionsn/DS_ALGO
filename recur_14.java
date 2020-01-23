@@ -6,6 +6,7 @@
 package ds_algo;
 
 /**
+substring method is used which returns a string from the specified index to the end index.
  remove character from a string.
  */
 public class recur_14 {
