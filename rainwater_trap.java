@@ -6,7 +6,7 @@ package ds_algo;
  * or right with a height greater than the current tower.
  * but if there are towers on the left and right of current tower then
  * max amt of water on the current tower is 
- * min(max height of tower on left, max height of tower on right - current height of tower)
+ * max(min(max height of tower on left, max height of tower on right - current height of tower),0)
  */
 public class rainwater_trap {
     public static void main(String[] args) {
