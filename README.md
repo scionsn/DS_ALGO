@@ -1,2 +1,3 @@
 # DS_ALGO
-ds algo probs.
+DSA PROBLEMS SOLVED USING JAVA.
+
