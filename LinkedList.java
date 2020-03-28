@@ -65,7 +65,11 @@ head=n;
     }
     }
     public void deleteAt(int index){
-        if(index==0){
+     if(head==null){
+      System.out.println("cant delete from an empty list");
+     }
+     
+      else if(index==0){
             head=head.next;//if we are deleting first node then we just want the
 //            head to point to the next node.
         }
