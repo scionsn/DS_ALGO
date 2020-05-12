@@ -38,10 +38,16 @@ public class FloodFill {
 
      }
     public static void main(String[] args) {
-        int image[][]= {{1,1,1},
-                       {1,1,0},
-                        {1,0,1}};
-      int res[][]=  floodFill(image,1,1,2);
+        int image[][]= {{1, 1, 1, 1, 1, 1, 1, 1}, 
+                    {1, 1, 1, 1, 1, 1, 0, 0}, 
+                    {1, 0, 0, 1, 1, 0, 1, 1}, 
+                    {1, 2, 2, 2, 2, 0, 1, 0}, 
+                    {1, 1, 1, 2, 3, 0, 1, 0}, 
+                    {1, 1, 1, 2, 2, 2, 2, 0}, 
+                    {1, 1, 1, 1, 1, 2, 1, 1}, 
+                    {1, 1, 1, 1, 1, 2, 2, 1}, 
+                    };
+      int res[][]=  floodFill(image,4,4,3);
       for(int i=0;i<res.length;i++){
           for(int j=0;j<res.length;j++)
           {
