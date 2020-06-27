@@ -8,7 +8,7 @@ import java.util.TreeMap;
  *
  * @author SCION
  */
-public class BinaryTree {
+ class BinaryTree {
     int data;
     BinaryTree left;
     BinaryTree right;
@@ -17,6 +17,8 @@ public class BinaryTree {
     }
 }
 class BinTreeOp{
+//	the below var is for sum numbers method
+	int total=0;
                 Scanner s=new Scanner(System.in);
 String str="root";
     BinaryTree insert(){
@@ -132,6 +134,26 @@ str="left";
           
           
       }
+//      the method below returns the sum of nodes from root to leaf.
+//      An example is the root-to-leaf path 1->2->3 which represents the number 123.
+      public int sumNumbers(BinaryTree root) {
+    	        helper(root,0);
+    	        return total;
+      }
+    	    public void helper(BinaryTree root,int sum){
+    	        if(root==null){
+    	            return;
+    	        }
+    	    sum=sum*10+root.data;
+    	        if(root.left==null&&root.right==null){
+    	            total+=sum;
+    	            return;
+    	        }
+    	        helper(root.left,sum);
+    	        helper(root.right,sum);
+    	        
+    	    }
+      
       int getheight(BinaryTree root){
           if(root==null){
               return 0;
@@ -220,13 +242,12 @@ getverticalview(root,tree,height);
         BinTreeOp node=new BinTreeOp();
         BinaryTree root=node.insert();
                 System.out.println("tree print==>");
-
         node.print(root);
-System.out.println(node.search(root, 3)!=null?"exists":"not exists");
-node.LCA(root, 3, 4);
-BinaryTree ans=node.LCA(root, 3, 4);
-        System.out.println("lca is "+ans.data);
-        System.out.println(node.countNodes(root));
+//System.out.println(node.search(root, 3)!=null?"exists":"not exists");
+//node.LCA(root, 3, 4);
+//BinaryTree ans=node.LCA(root, 3, 4);
+//        System.out.println("lca is "+ans.data);
+//        System.out.println(node.countNodes(root));
 //        node.verticalview(root);
 //        System.out.println("preorder traversal==>");
 //        node.preorder(root);
@@ -242,3 +263,4 @@ BinaryTree ans=node.LCA(root, 3, 4);
                 
     }
 }
+
