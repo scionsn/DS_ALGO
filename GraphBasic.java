@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
+import java.util.Stack;
 /**
  *
  * @author SCION
@@ -61,6 +64,7 @@ class Graph{
 		
 		
 	}
+//        prims algo gives us  a min spanning tree
         Graph prims() {
         	Graph mst=new Graph();
         	HashMap<String,mstpair> map=new HashMap<>();
@@ -81,7 +85,7 @@ class Graph{
         		}
         		else {
         			mst.addVertex(pp.vertexname);
-        			mst.addEdge(pp.acquiredfrom, pp.vertexname, pp.cost);
+        			mst.addEdgeUndir(pp.acquiredfrom, pp.vertexname, pp.cost);
         		}
         		for(String neighbour:vertices.get(pp.vertexname).neighbours.keySet()) {
         			if(map.containsKey(neighbour)) {
@@ -102,11 +106,13 @@ class Graph{
         	}
         	return mst;
         }
-        
+
+//        djikstra gives us shortest path
         Graph Djikstra(String source) {
         	Graph mst=new Graph();
         	HashMap<String,mstpair> map=new HashMap<>();
         	PriorityQueue<mstpair> heap=new PriorityQueue<>((first,second)->first.cost-second.cost);
+ 
         	for(String key:vertices.keySet()) {
         		mstpair p=new mstpair();
         		p.vertexname=key;
@@ -115,7 +121,10 @@ class Graph{
         		        	heap.add(p);        		
         		        	map.put(key, p);        		        	
         	}
-        	while(!heap.isEmpty()) {
+        	for(mstpair i:heap) {
+        		System.out.println(i.vertexname);
+        	}
+        	        	while(!heap.isEmpty()) {
         		mstpair pp=heap.poll();
         		map.remove(pp.vertexname);
         		if(pp.acquiredfrom==null) {
@@ -123,7 +132,7 @@ class Graph{
         		}
         		else {
         			mst.addVertex(pp.vertexname);
-        			mst.addEdge(pp.acquiredfrom, pp.vertexname, pp.cost);
+        			mst.addEdgeUndir(pp.acquiredfrom, pp.vertexname, pp.cost);
         		}
         		for(String neighbour:vertices.get(pp.vertexname).neighbours.keySet()) {
         			if(map.containsKey(neighbour)) {
@@ -293,6 +302,78 @@ return false;
        		return componentMap;
        	}
        	
+//         the below algo gives us strongly connected components
+           void  KosarajuSSC(Graph g){
+             	HashMap<String,Boolean> visited=new HashMap<>();
+             	Stack<String> stack=new Stack<>();
+             	for(Map.Entry<String, Vertex>v:g.vertices.entrySet()) {
+             		if(visited.containsKey(v.getKey())) {
+             			continue;
+             		}
+             		dfskosaraju(v.getKey(),visited,stack);
+             	}
+             	
+             } 
+           void dfskosaraju(String vertex,HashMap<String,Boolean> visited,Stack<String> stack) {
+        	   visited.put(vertex, true);
+        	  for(Map.Entry<String,Integer> m: vertices.get(vertex).neighbours.entrySet()) {
+        		  
+        	  }
+        	   
+           }
+//           the below function uses kahns algorithm
+          Character[] topologicalsort(List<List<String>> list,int n) {
+        	  Character res[]=new Character[n];
+        	  int indegree[]=new int[n];
+        	  Queue<Character> queue=new LinkedList<>();
+        	  for(int i=0;i<indegree.length;i++) {
+        		  indegree[i]=0;
+        	  }
+//        	  we only want that vertex which has an indegree 0.
+        	  for(int i=0;i<list.size();i++) {
+        		  for(int j=0;j<1;j++) {
+         indegree[list.get(i).get(1).charAt(0)-'A']=++indegree[list.get(i).get(1).charAt(0)-'A'];
+        		  }
+        	  }
+        	  for(int i=0;i<indegree.length;i++) {
+        		  
+        		  if(indegree[i]==0) {
+            		  int a='A'+i;
+        			 char c=(char) (a);
+        	  queue.add(c);
+        		  }
+        	  }
+        	  
+    		  int k=0;
+        	  while(!queue.isEmpty()) {
+        		char curr=  queue.poll();
+        		if(k<n) {
+        			res[k]=curr;
+        		}
+        		k++;
+
+        		for(int i=0;i<list.size();i++) {
+        			if(list.get(i).get(0).charAt(0)==curr) {
+        indegree[list.get(i).get(1).charAt(0)-'A']= --indegree[list.get(i).get(1).charAt(0)-'A'];	
+        if(indegree[list.get(i).get(1).charAt(0)-'A']==0) {
+        	 System.out.println(list.get(i).get(1).charAt(0));
+        	queue.add(list.get(i).get(1).charAt(0));
+        }
+        			}
+
+           	  }
+        	  }
+        	 
+        	  for(int i:indegree) {
+        		  System.out.println(i);
+        	  }
+        	  for(char i:queue) {
+        		  System.out.println(i);
+        	  }
+        	  return res;
+        	  
+          }
+           
            
             boolean CycleExists (String source) {
 		HashMap<String, Boolean> visitedMap = new HashMap<>();
@@ -364,7 +445,7 @@ return false;
 					queue.addLast(newPair);
 				}
 			}
-			
+		
 		}
                 }
                 return visit==1;
@@ -391,7 +472,7 @@ return false;
 		return true;
 		
 	}
-	public void addEdge(String firstVertex, String secondVertex, int cost) {
+	public void addEdgeUndir(String firstVertex, String secondVertex, int cost) {
 		// First Both vertex exist then check there is no edge , then add
 		if(containsEdge(firstVertex, secondVertex)) {
 			System.out.println("Edge Already Present can't Add");
@@ -403,6 +484,19 @@ return false;
 			second.neighbours.put(firstVertex, cost);
 		}
 	}
+	public void addEdgeDir(String firstVertex, String secondVertex, int cost) {
+		// First Both vertex exist then check there is no edge , then add
+		if(containsEdge(firstVertex, secondVertex)) {
+			System.out.println("Edge Already Present can't Add");
+		}
+		else {
+			Vertex first = vertices.get(firstVertex);
+			first.neighbours.put(secondVertex, cost);
+		}
+	}
+	
+	
+	
 	public void removeEdge(String first, String second) {
 		if(containsEdge(first, second)) 
                 {
@@ -448,18 +542,85 @@ class pair{
 		graph.addVertex("E");
 		graph.addVertex("F");
 		graph.addVertex("G");
-		graph.addEdge("A", "B", 2);
-		graph.addEdge("A", "D", 6);
-		graph.addEdge("B", "C", 3);
-		graph.addEdge("C", "D", 1);
-		graph.addEdge("D", "E", 8);
-		graph.addEdge("E", "F", 5);
-		graph.addEdge("E", "G", 7);
-		graph.addEdge("F", "G", 4);
+		graph.addEdgeUndir("A", "B", 2);
+		graph.addEdgeUndir("A", "D", 6);
+		graph.addEdgeUndir("B", "C", 3);
+		graph.addEdgeUndir("C", "D", 1);
+		graph.addEdgeUndir("D", "E", 8);
+		graph.addEdgeUndir("E", "F", 5);
+		graph.addEdgeUndir("E", "G", 7);
+		graph.addEdgeUndir("F", "G", 4);
+		
+		Graph graph2 = new Graph();
+		graph2.addVertex("A");
+		graph2.addVertex("B");
+		graph2.addVertex("C");
+		graph2.addVertex("D");
+		graph2.addVertex("E");
+		graph2.addVertex("F");
+		graph2.addVertex("G");
+		graph2.addVertex("H");
+		graph2.addVertex("K");
+		graph2.addVertex("I");
+
+		graph2.addEdgeDir("A", "B", 2);
+		graph2.addEdgeDir("B", "C", 6);
+		graph2.addEdgeDir("C", "D", 3);
+		graph2.addEdgeDir("C", "I", 1);
+		graph2.addEdgeDir("D", "A", 8);
+		graph2.addEdgeDir("I", "E", 5);
+		graph2.addEdgeDir("E", "F", 7);
+		graph2.addEdgeDir("F", "I", 4);
+		
+		graph2.addEdgeDir("G", "F", 5);
+		graph2.addEdgeDir("G", "H", 7);
+		graph2.addEdgeDir("H", "G", 4);
+		graph2.addEdgeDir("H", "K", 4);
+		Graph graph3=new Graph();
+		graph3.addVertex("A");
+		graph3.addVertex("B");
+		graph3.addVertex("C");
+		graph3.addVertex("D");
+		graph3.addVertex("E");
+		graph3.addEdgeDir("A", "B", 2);
+		graph3.addEdgeDir("A", "D", 6);
+		graph3.addEdgeDir("B", "C", 3);
+		graph3.addEdgeDir("B", "D", 1);
+		graph3.addEdgeDir("D", "C", 8);
+		graph3.addEdgeDir("D", "E", 8);
+
+		
+String graph3matrix[][]= {
+		{"A","B"},
+		{"A","D"},
+		{"B","C"},
+		{"B","D"},
+		{"D","C"},
+		{"D","E"}
+		
+};
+List<List<String>> mainList = new ArrayList<>();
+for(int i=0;i<graph3matrix.length;i++) {
+	List<String> subList = new ArrayList<>();
+	subList.add(graph3matrix[i][0]);
+	subList.add(graph3matrix[i][1]);
+	mainList.add(subList);
+}
+System.out.println("adjacency list for kahns algo"+mainList);
+
 		System.out.println("the graph is --->");
-		graph.print();
+//		graph.print();
+//		graph2.print();
+		graph3.print();
+		Character res[]=graph3.topologicalsort(mainList,graph3.vertices.size());
+		for(Character i:res) {
+			System.out.println(i);
+		}
+//		graph2.KosarajuSSC(graph2);
 //		System.out.println("get components called---->"+graph.getComponents());
-		graph.prims().print();
+//		graph.prims().print();
+//		graph.Djikstra("B").print();
+//		graph.Djikstra("B");
 		
 //                System.out.println("is graph connected?----->"+graph.IsConnected());
 //               System.out.println("no. of vertices in graph are "+graph.countVertex()); 
