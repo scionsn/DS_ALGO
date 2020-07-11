@@ -166,10 +166,16 @@ class LinkedListOperations<T>{
 		throw new RuntimeException("List is blank");
 		
 	}
-	else if(index>size) {
+	if(index==0) {
+		Node1<T> temp=start;
+		start=start.next;
+		temp=null;
+	}
+	else if(index>=size) {
 		throw new RuntimeException("Index out of bounds");
 
 	}
+	
 	else {
 		Node1<T> temp = start;
 		Node1<T> prev=start;
@@ -389,7 +395,7 @@ public class SinglyLLDemoBM {
 		opr4.insertAtEnd(new Node1<Integer>(5));
 //System.out.println(opr4.getNodeAtIndex(4).data);
 //System.out.println(opr4.getSize());
-opr4.DeleteAtIndex(2);
+opr4.DeleteAtIndex(5);
 		opr4.print();
 //		opr4.RemDupFromSortedLL2(node4);
 
