@@ -307,6 +307,73 @@ class LinkedListOperations<T>{
 		tail.next = null;
 
 	}
+	Node1 reversePointers2(Node1<T> node) {	
+		Node1<T> prev = null;
+		// 2. Current  = prev.next
+		Node1<T> current = node;
+		Node1<T> ahead = null;
+
+		while(current!=null) {
+			ahead = current.next;
+			current.next = prev;
+			prev = current;
+			current = ahead;
+		}
+		
+		node=prev;
+		Node1 temp=node;
+
+return node;
+
+	}
+	
+	Node1 reorderList(Node1 node){
+	if(node==null||node.next==null||node.next.next==null) {
+		return node;
+	}
+		Node1<T> slow=node;
+		Node1<T> fast=node;
+		
+		while(fast!=null&&fast.next!=null) {
+			slow=slow.next;
+			fast=fast.next.next;
+		}		
+		
+//		divide the linked list into two linked list each having a head.
+		Node1<T> node1=node;
+		Node1<T> node2=slow.next;
+		slow.next=null;
+		node2=reversePointers2(node2);
+		Node1<T> finallist=new Node1(-1);
+		Node1 node3=finallist;
+		while(node1!=null) {
+			if(node1!=null) {
+				node3.next=node1;
+				node3=node3.next;
+				node1=node1.next;
+			}
+			if(node2!=null) {
+				node3.next=node2;
+				node3=node3.next;
+				node2=node2.next;
+			}
+		}
+		
+//		while(finallist.next!=null) {
+//			System.out.println(finallist.data);
+//			finallist=finallist.next;
+//		}
+		return finallist.next;		
+	}
+	void testfunc(Node1 node) {
+		Node1 temp=node;
+		Node1 temp2=node;
+		temp2.next=null;
+		
+	
+		System.out.println("og data is "+node.data+" "+node.next.data);
+		
+	}
 	boolean intersectionInTwoLL(Node1<T> l1 , Node1<T> l2) {
 		Node1<T> start = l1;
 		Node1<T> start2 = l2;
@@ -362,7 +429,7 @@ public class SinglyLLDemoBM {
 		opr.insertAtEnd(new Node1<Integer>(4));
 		opr.insertAtEnd(new Node1<Integer>(5));
 
-		opr.OddEvenList(node1);
+//		opr.OddEvenList(node1);
 		LinkedListOperations<Integer> opr2 = new LinkedListOperations<>();
 
 		Node1<Integer> node2 = new Node1<>(1);
@@ -389,14 +456,15 @@ public class SinglyLLDemoBM {
 		opr4.insertAtEnd(node4);
 		opr4.insertAtEnd(new Node1<Integer>(2));
 		opr4.insertAtEnd(new Node1<Integer>(3));
-		opr4.insertAtEnd(new Node1<Integer>(3));
-		opr4.insertAtEnd(new Node1<Integer>(4));
 		opr4.insertAtEnd(new Node1<Integer>(4));
 		opr4.insertAtEnd(new Node1<Integer>(5));
 //System.out.println(opr4.getNodeAtIndex(4).data);
 //System.out.println(opr4.getSize());
-opr4.DeleteAtIndex(5);
-		opr4.print();
+//opr4.DeleteAtIndex(5);
+//		opr4.reversePointers();
+		opr4.reorderList(node4);
+//		opr4.testfunc(node4);
+				opr4.print();
 //		opr4.RemDupFromSortedLL2(node4);
 
 		//		LinkedListOperations<Integer> opr2 = new LinkedListOperations<>();
