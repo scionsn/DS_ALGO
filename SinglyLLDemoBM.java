@@ -87,7 +87,7 @@ class LinkedListOperations<T>{
 	//	1->2->2->3 is input
 	//	output should be 1->3
 	void RemDupFromSortedLL2(Node1<T> head){
-					
+
 	}
 	void findKthNode(int k){
 		Node1<T> p;
@@ -161,35 +161,35 @@ class LinkedListOperations<T>{
 		}
 	}
 	void DeleteAtIndex(int index) {
-	int size=getSize();
-	if(size==0) {
-		throw new RuntimeException("List is blank");
-		
-	}
-	if(index==0) {
-		Node1<T> temp=start;
-		start=start.next;
-		temp=null;
-	}
-	else if(index>=size) {
-		throw new RuntimeException("Index out of bounds");
+		int size=getSize();
+		if(size==0) {
+			throw new RuntimeException("List is blank");
+
+		}
+		if(index==0) {
+			Node1<T> temp=start;
+			start=start.next;
+			temp=null;
+		}
+		else if(index>=size) {
+			throw new RuntimeException("Index out of bounds");
+
+		}
+
+		else {
+			Node1<T> temp = start;
+			Node1<T> prev=start;
+			for(int i=0;i<index-1;i++) {
+				temp=temp.next;
+			}
+			prev=temp;
+			temp=temp.next;
+			prev.next=temp.next;
+			temp=null;
+		}
 
 	}
-	
-	else {
-		Node1<T> temp = start;
-		Node1<T> prev=start;
-		for(int i=0;i<index-1;i++) {
-			temp=temp.next;
-		}
-		prev=temp;
-		temp=temp.next;
-		prev.next=temp.next;
-		temp=null;
-	}
-	
-	}
-	
+
 
 
 	// insert at beg
@@ -261,7 +261,7 @@ class LinkedListOperations<T>{
 		return size;
 	}
 	void reverseDataUsingStack(){
-//		Stack<Integer> stack=new Stack<>();
+		//		Stack<Integer> stack=new Stack<>();
 
 	}
 	void reverseData() {
@@ -319,34 +319,34 @@ class LinkedListOperations<T>{
 			prev = current;
 			current = ahead;
 		}
-		
+
 		node=prev;
 		Node1 temp=node;
 
-return node;
+		return node;
 
 	}
-	
+
 	Node1 reorderList(Node1 node){
-	if(node==null||node.next==null||node.next.next==null) {
-		return node;
-	}
+		if(node==null||node.next==null||node.next.next==null) {
+			return node;
+		}
 		Node1<T> slow=node;
 		Node1<T> fast=node;
-		
+
 		while(fast!=null&&fast.next!=null) {
 			slow=slow.next;
 			fast=fast.next.next;
 		}		
-		
-//		divide the linked list into two linked list each having a head.
+
+		//		divide the linked list into two linked list each having a head.
 		Node1<T> node1=node;
 		Node1<T> node2=slow.next;
 		slow.next=null;
 		node2=reversePointers2(node2);
 		Node1<T> finallist=new Node1(-1);
 		Node1 node3=finallist;
-		while(node1!=null) {
+		while(node1!=null||node2!=null) {
 			if(node1!=null) {
 				node3.next=node1;
 				node3=node3.next;
@@ -358,21 +358,39 @@ return node;
 				node2=node2.next;
 			}
 		}
-		
-//		while(finallist.next!=null) {
-//			System.out.println(finallist.data);
-//			finallist=finallist.next;
-//		}
+
+		//		while(finallist.next!=null) {
+		//			System.out.println(finallist.data);
+		//			finallist=finallist.next;
+		//		}
 		return finallist.next;		
+	}
+	Node1 SwapNodesInPair(Node1 node) {
+Node1 h=node;
+Node1 newhead=node.next;
+while(true) {
+	Node1 q=h.next;
+	Node1 temp=q.next;
+	q.next=h;
+	if(temp==null||temp.next==null) {
+		h.next=temp;
+		break;
+	}
+	h.next=temp.next;
+	h=temp;
+
+}
+return newhead;
+
 	}
 	void testfunc(Node1 node) {
 		Node1 temp=node;
 		Node1 temp2=node;
 		temp2.next=null;
-		
-	
+
+
 		System.out.println("og data is "+node.data+" "+node.next.data);
-		
+
 	}
 	boolean intersectionInTwoLL(Node1<T> l1 , Node1<T> l2) {
 		Node1<T> start = l1;
@@ -429,7 +447,7 @@ public class SinglyLLDemoBM {
 		opr.insertAtEnd(new Node1<Integer>(4));
 		opr.insertAtEnd(new Node1<Integer>(5));
 
-//		opr.OddEvenList(node1);
+		//		opr.OddEvenList(node1);
 		LinkedListOperations<Integer> opr2 = new LinkedListOperations<>();
 
 		Node1<Integer> node2 = new Node1<>(1);
@@ -458,14 +476,15 @@ public class SinglyLLDemoBM {
 		opr4.insertAtEnd(new Node1<Integer>(3));
 		opr4.insertAtEnd(new Node1<Integer>(4));
 		opr4.insertAtEnd(new Node1<Integer>(5));
-//System.out.println(opr4.getNodeAtIndex(4).data);
-//System.out.println(opr4.getSize());
-//opr4.DeleteAtIndex(5);
-//		opr4.reversePointers();
-		opr4.reorderList(node4);
-//		opr4.testfunc(node4);
-				opr4.print();
-//		opr4.RemDupFromSortedLL2(node4);
+		//System.out.println(opr4.getNodeAtIndex(4).data);
+		//System.out.println(opr4.getSize());
+		//opr4.DeleteAtIndex(5);
+		//		opr4.reversePointers();
+		opr4.SwapNodesInPair(node4);
+//		opr4.reorderList(node4);
+		//		opr4.testfunc(node4);
+//		opr4.print();
+		//		opr4.RemDupFromSortedLL2(node4);
 
 		//		LinkedListOperations<Integer> opr2 = new LinkedListOperations<>();
 		//		Node1<Integer> node2 = new Node1<>(0);
