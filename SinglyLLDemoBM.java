@@ -264,9 +264,24 @@ class LinkedListOperations<T>{
 		//		Stack<Integer> stack=new Stack<>();
 
 	}
-	void reverseData() {
-		int left = 0;
-		int right = getSize() - 1;
+void rotateright(Node1 node,int k) {
+		Node1 temp=node;
+		int size=0;
+		while(temp!=null) {
+			temp=temp.next;
+			size++;
+		}
+		k=k%size;
+		reverseData(0,size-1);
+		reverseData(0,k-1);
+		reverseData(k,size-1);
+		
+		
+		
+	}
+	void reverseData(int begin,int end) {
+		int left = begin;
+		int right = end;
 		while(left<right) {
 			Node1<T> leftNode = getNodeAtIndex(left);
 			Node1<T> rightNode = getNodeAtIndex(right);
@@ -278,6 +293,7 @@ class LinkedListOperations<T>{
 			right--;
 		}
 	}
+	
 	void reversePointers() {
 		if(start== null) {
 			System.out.println("Linked List is Empty Can't Reverse");
@@ -383,6 +399,7 @@ while(true) {
 return newhead;
 
 	}
+	
 	void testfunc(Node1 node) {
 		Node1 temp=node;
 		Node1 temp2=node;
@@ -392,6 +409,7 @@ return newhead;
 		System.out.println("og data is "+node.data+" "+node.next.data);
 
 	}
+
 	boolean intersectionInTwoLL(Node1<T> l1 , Node1<T> l2) {
 		Node1<T> start = l1;
 		Node1<T> start2 = l2;
@@ -480,10 +498,11 @@ public class SinglyLLDemoBM {
 		//System.out.println(opr4.getSize());
 		//opr4.DeleteAtIndex(5);
 		//		opr4.reversePointers();
-		opr4.SwapNodesInPair(node4);
+//		opr4.SwapNodesInPair(node4);
 //		opr4.reorderList(node4);
 		//		opr4.testfunc(node4);
-//		opr4.print();
+		opr4.rotateright(node4, 4);
+		opr4.print();
 		//		opr4.RemDupFromSortedLL2(node4);
 
 		//		LinkedListOperations<Integer> opr2 = new LinkedListOperations<>();
