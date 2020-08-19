@@ -1,5 +1,5 @@
 //microsoft interview ques.
-//find coprimes in the range of [2,250]
+//find farthest coprimes in the range of [2,250]
 public class FarthestCoprimes {
 	public static int[] coprimes(int arr[]) {
 		int res[]=new int[arr.length];
