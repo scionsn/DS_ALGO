@@ -20,7 +20,7 @@ public class AddDigits {
 //	        
 //	    }
 
-//	optimized O(1) time and space
+//	optimized O(1) time and space code
 	static int addDigits(int num) {
 		if(num==0)
 return 0;
