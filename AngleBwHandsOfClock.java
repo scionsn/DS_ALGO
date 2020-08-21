@@ -1,4 +1,4 @@
-
+//july lc
 public class AngleBwHandsOfClock {
 	 public static  double angleClock(int hour, int minutes) {
 	        double hours= 30*hour+0.5*minutes;
