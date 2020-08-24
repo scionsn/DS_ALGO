@@ -15,18 +15,15 @@ public class SortedArrToBST {
 return helper(nums,0,nums.length-1);
 	    }
 	public static TreeNode helper(int arr[],int i,int j) {
-//		base case
 		if(i>j)
 			return null;
 		 int mid=(i+j)/2;
 		 TreeNode root=new TreeNode(arr[mid]);
-//		 if i==j => that my array only has one element which i and j are pointing to ,so just return that.
 		 if(i==j)
 			 return root;
-		 root.left=helper(arr,0,mid-1);
-		 root.right=helper(arr,mid+1,arr.length-1);
+		 root.left=helper(arr,i,mid-1);
+		 root.right=helper(arr,mid+1,j);
 		 return root;
-		 
 		 
 		 
 	 }
