@@ -28,6 +28,11 @@ public class DeleteNodeFromBST {
 	       else if(root.left==null&&root.right!=null)
 	        	return root.right;
 	       else{
+//	    	   we find the max value in the left subtree of the node to be deleted. 
+//	    	   this max value will replace the node to be deleted from the tree.
+//	    	   after replacing we delete the max value from its OG posn to avoid duplicates. and
+//	    	   now the max value has taken the posn of the deleted node.
+//	    	   after this we have successfully deleted the node from bst.
 	        	int maxleft=maxvalue(root.left);
                System.out.println(maxleft);
 	        	root.val=maxleft;
