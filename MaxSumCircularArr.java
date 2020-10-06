@@ -1,57 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package leetcode;
 
 import static java.lang.Integer.max;
-
-/**
- *
- * @author SCION
- * the solution is implemented without actually considering circular arr.
- * the sol. just focuses on simple array traversing.
- */
+//here we take the maximum of simple kadens and the special kadens for circular arr
+//circular array is calculated by negating the entire arr and then calc its max which is
+//actually the min for original arr and then subtract from the total. 
 public class MaxSumCircularArr {
-  static int calcsum(int arr[],int size){
-      int max_straightsum=Integer.MIN_VALUE;
-      int min_straightsum=Integer.MAX_VALUE;
-      int temp_maxsum=0;
-      int temp_minsum=0;
-      int arr_sum=0;
-      for(int i=0;i<size;i++){
-      arr_sum+=arr[i];
-      temp_maxsum+=arr[i];
-      
-max_straightsum=temp_maxsum>max_straightsum? max_straightsum=temp_maxsum:max_straightsum;  
-temp_maxsum=temp_maxsum<0?0:temp_maxsum;
-//        if(temp_maxsum>max_straightsum){
-//          max_straightsum=temp_maxsum;
-//      }
-//      if(temp_maxsum<0){
-//          temp_maxsum=0;
-//      }
-      temp_minsum+=arr[i];
-      min_straightsum=temp_minsum<min_straightsum? min_straightsum=temp_minsum:min_straightsum;
-      temp_minsum=temp_minsum>0?0:temp_minsum;
-//      if(temp_minsum<min_straightsum){
-//          min_straightsum=temp_minsum;
-//      }
-//      if(temp_minsum>0){
-//          temp_minsum=0;
-//      }
-     }
-       if(arr_sum==min_straightsum){
-          return max_straightsum;
-      }
-       return max(max_straightsum,(arr_sum-min_straightsum));
-      
-   }
+	  private static int helper(int[] arr){
+	        int msf=Integer.MIN_VALUE;
+	        int mth=0;
+	        for(int i=0;i<arr.length;i++){
+	            mth+=arr[i];
+	            if(arr[i]>mth)
+	                mth=arr[i];
+	            if(msf<mth)
+	                msf=mth;
+	        
+	        }
+	        return msf;
+	    }
+	    public static int maxSubarraySumCircular(int[] A) {
+	        int x=helper(A);
+	        int sum=0;
+	        for(int i=0;i<A.length;i++){
+	            sum+=A[i];
+	            A[i]*=-1;
+	        }
+	        int neg=helper(A);
+	        neg=-neg;
+	        int circular=sum-neg;
+//	        we return x since there might be a case of all negative integers.
+	if(circular==0)
+	    return x;
+	        return Math.max(circular,x);
+	        }
+	  
     public static void main(String[] args) {
         int[] arr={-2,-2,-3,-4};
         int size=arr.length;
-       int res= calcsum(arr,size);
+       int res= maxSubarraySumCircular(arr);
         System.out.println(res);
     }
 }
