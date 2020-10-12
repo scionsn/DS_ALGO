@@ -1,3 +1,5 @@
+//Given a collection of intervals, find the minimum number of 
+//intervals you need to remove to make the rest of the intervals non-overlapping.
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -9,18 +11,32 @@ public static int eraseOverlapIntervals(int[][] intervals) {
         	}
         });
         int count=0;
-        int endtime=intervals[0][1];
-        for(int i=1;i<intervals.length;i++)
-        {
-        	if(intervals[i][0]<endtime) {
-        		count++;
-        		endtime=Math.min(endtime, intervals[i][1]);
-        				}
-        	else {
-        		endtime=intervals[i][1];
-        	}
-        	
-        	}
+      int left=0;
+      int right=1;
+      int n=intervals.length;
+      while(right<n) {
+//    	  for non overlapping intervals
+    	  if(intervals[left][1]<=intervals[right][0]) {
+              left=right;
+
+    		  right++;
+    	  }
+//    	  for intervals that are completely overlapped by another interval, in this casee
+//    	  we just remove the bigger interval as it might cover other intervals
+    	  else if(intervals[left][1]>intervals[right][1]) {
+    		 count++;
+    		  left=right;
+    		  right++;
+    	  }
+    	  
+//    	  for simple overlapping intervals
+    	  else if(intervals[left][1]<=intervals[right][1]) {
+    		  count++;
+    		  right++;
+    	  }
+    	  
+      }
+      
         return count;
         }
 	public static void main(String[] args) {
